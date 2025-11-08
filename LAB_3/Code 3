@@ -1,0 +1,86 @@
+//Design, Develop and Implement a menu driven Program in C for the following operations on QUEUE of Characters (Array Implementation of Queue with maximum size MAX)
+a. Insert an Element on to QUEUE
+b. Delete an Element from QUEUE
+c. Demonstrate Overflow and Underflow situations on QUEUE
+d. Display the status of QUEUE
+e. Exit
+Support the program with appropriate functions for each of the above operations.
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 10
+
+char q[MAX];
+int f = -1, r = -1;
+
+void enqueue(char x) {
+    if (r == MAX - 1) {
+        printf("Queue Overflow!\n");
+    } else if (f == -1 && r == -1) {
+        f = r = 0;
+        q[r] = x;
+        printf("%c entered the queue\n", q[r]);
+    } else {
+        r++;
+        q[r] = x;
+        printf("%c entered the queue\n", q[r]);
+    }
+}
+
+void dequeue() {
+    if (f == -1 && r == -1) {
+        printf("Queue Underflow!\n");
+    } else if (f == r) {
+        printf("%c left the queue\n", q[f]);
+        f = r = -1;
+    } else {
+        printf("%c left the queue\n", q[f]);
+        f++;
+    }
+}
+
+void display() {
+    if (f == -1 && r == -1) {
+        printf("Queue is empty\n");
+    } else {
+    	int i;
+        printf("Queue elements: ");
+        for ( i = f; i <= r; i++)
+            printf("%c ", q[i]);
+        printf("\n");
+    }
+}
+
+int main() {
+    int c;
+    char x;
+    while (1) {
+        printf("1. Insert element\n");
+        printf("2. Delete element\n");
+        printf("3. Display queue\n");
+        printf("4. Exit\n");
+        printf("Enter choice: ");
+        scanf("%d", &c);
+
+        switch (c) {
+            case 1:
+                printf("Enter character: ");
+                scanf(" %c", &x); 
+                enqueue(x);
+                break;
+
+            case 2:
+                dequeue();
+                break;
+
+            case 3:
+                display();
+                break;
+
+            case 4:
+                exit(0);
+
+            default:
+                printf("Invalid choice!\n");
+        }
+    }
+}
